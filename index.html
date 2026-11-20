@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1e1f22">
+<title>UDAY Koreografi Studio · V3</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="UDAY">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f5a000'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='20' font-weight='800' text-anchor='middle' fill='%231e1f22'%3EU%3C/text%3E%3C/svg%3E">
+  <script type="module" crossorigin src="./assets/index-CzCPoAev.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B7YL9CEU.css">
+</head>
+<body data-tab="2d">
+<header class="topbar">
+  <div class="brand"><span class="logo">U</span><div class="bt"><b>UDAY Koreografi</b><small id="projTitle"></small></div></div>
+  <nav class="seg tabs" aria-label="Görünüm">
+    <button data-tab="lib">Oyunlar</button>
+    <button data-tab="2d" class="active">2D Sahne</button>
+    <button data-tab="3d">3D</button>
+    <button data-tab="set">Ayarlar</button>
+  </nav>
+  <div class="tb-right">
+    <div class="seg layoutseg not-set" aria-label="Sahne zemini">
+      <button data-layout="1" title="Sahne 1 · Temel zemin">Sahne 1</button>
+      <button data-layout="2" title="Sahne 2 · Sarı alan dahil">Sahne 2</button>
+      <button data-layout="3" title="Sahne 3 · 2 m dikey hiza çizgileri">Sahne 3</button>
+    </div>
+    <span class="vsep not-set"></span>
+    <button class="ib not-set" id="undo" aria-label="Geri al" data-tip="Geri al (Ctrl+Z)">↶</button>
+    <button class="ib not-set" id="redo" aria-label="İleri al" data-tip="İleri al (Ctrl+Shift+Z)">↷</button>
+    <div class="tbgrp only2d" role="group" aria-label="Kilitler"><span class="tbcap">Kilitler</span>
+      <button class="tbtn lockbtn sexE" id="lockE" aria-pressed="false" data-tip="Erkekleri kilitle: seçilemez ve taşınamaz"><svg class="ic"><use href="#ic-unlock"/></svg><span>Erkek</span></button>
+      <button class="tbtn lockbtn sexK" id="lockK" aria-pressed="false" data-tip="Kızları kilitle: seçilemez ve taşınamaz"><svg class="ic"><use href="#ic-unlock"/></svg><span>Kız</span></button>
+    </div>
+    <div class="tbgrp only2d" role="group" aria-label="Yardımcılar"><span class="tbcap">Yardımcılar</span>
+      <button class="tbtn ib on" id="mag" aria-pressed="true" data-tip="Mıknatıs: sahne çizgilerine, diğer dansçıların hizasına, eşit aralığa, merkeze ve kenarlara yapıştırır. Sürüklerken Alt (iPad: ikinci parmak) geçici kapatır."><svg class="ic"><use href="#ic-magnet"/></svg><span>Mıknatıs</span></button>
+      <button class="tbtn ib" id="snap" aria-pressed="false" data-tip="Izgara: dansçıları 0,5 m'lik ızgaraya yapıştırır"><svg class="ic"><use href="#ic-grid"/></svg><span>Izgara</span></button>
+      <button class="tbtn ib on" id="ghost" aria-pressed="true" data-tip="Önceki iz: önceki figürdeki yerleri kesikli daire ve yolla gösterir"><svg class="ic"><use href="#ic-ghost"/></svg><span>Önceki iz</span></button>
+    </div>
+    <div class="tbgrp tbexp only2d" role="group" aria-label="Dışa aktar"><span class="tbcap">Dışa aktar</span>
+      <button class="tbtn" id="png" data-tip="Sahnenin görüntüsünü PNG dosyası olarak indir"><svg class="ic"><use href="#ic-download"/></svg><span>PNG</span></button>
+    </div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+      <symbol id="ic-unlock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.6-1.7"/></symbol>
+      <symbol id="ic-magnet" viewBox="0 0 24 24"><path d="M6 4v7a6 6 0 0 0 12 0V4h-4v7a2 2 0 0 1-4 0V4z"/><path d="M6 8h4M14 8h4"/></symbol>
+      <symbol id="ic-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></symbol>
+      <symbol id="ic-ghost" viewBox="0 0 24 24"><circle cx="7" cy="12" r="3.5" stroke-dasharray="2.2 2"/><path d="M11 12h3.5" stroke-dasharray="2 1.6"/><circle cx="18" cy="12" r="3.2"/></symbol>
+      <symbol id="ic-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+    </svg>
+  </div>
+</header>
+
+<main class="workspace">
+  <nav class="rail" aria-label="Araçlar">
+    <button class="rb only2d" data-pop="popSel"><i>☐</i><span>Seçim</span></button>
+    <button class="rb only2d" data-pop="popStage"><i>⇄</i><span>Giriş</span></button>
+    <button class="rb only2d" data-pop="popForm"><i>◇</i><span>Dizilim</span></button>
+    <button class="rb" data-pop="popMusic"><i>♩</i><span>Ritim</span></button>
+    <button class="rb only3d" data-pop="popAtmo"><i>☀</i><span>Atmosfer</span></button>
+    <button class="rb only3d" data-pop="popCost"><i>✦</i><span>Kostüm</span></button>
+    <button class="rb only3d" data-pop="popRec"><i>●</i><span>Video</span></button>
+  </nav>
+
+  <section class="canvasArea" id="viewSec">
+    <div class="flowbanner" id="flowBanner" hidden><span class="fb-dot"></span><span class="fb-txt">Akış önizleme</span><button id="flowRestart" title="Baştan oynat">⏮ Baştan</button><button id="flowExit" class="primary">✕ Önizlemeyi kapat</button></div>
+    <!-- 2D -->
+    <div id="view2d">
+      <svg id="stage" xmlns="http://www.w3.org/2000/svg" aria-label="Üstten sahne yerleşimi">
+        <g id="gStatic"></g><g id="gPlus"></g><g id="gGuides"></g><g id="gGhost"></g><g id="gDancers"></g>
+        <rect id="boxSel" fill="rgba(255,211,109,.12)" stroke="#ffd36d" stroke-width=".03" stroke-dasharray=".12 .08" visibility="hidden"/>
+      </svg>
+
+      <div class="selbar" id="selbar" hidden>
+        <span class="grip" id="selGrip" title="Sürükleyerek taşı">⠿</span>
+        <span class="selcount"><b id="selInfo">Yok</b></span>
+        <div class="sg"><button class="sgbtn" data-g="al"><i>≡</i>Hizala<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Hizala</div><div class="sggrid"><button id="alH" title="Seçilenleri aynı yatay hizaya getir"><i>═</i><span>Yatay hiza</span></button><button id="alV" title="Seçilenleri aynı dikey hizaya getir"><i>║</i><span>Dikey hiza</span></button><button id="dsH" title="Yatayda eşit aralıkla dağıt"><i>↔</i><span>Yatay dağıt</span></button><button id="dsV" title="Dikeyde eşit aralıkla dağıt"><i>↕</i><span>Dikey dağıt</span></button><button id="mirror" title="Merkez çizgisine göre aynala"><i>⇋</i><span>Aynala</span></button><button id="center" title="Seçimi sahne ortasına al"><i>⊕</i><span>Ortala</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="sc"><i>⤢</i>Boyut<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Boyut</div><div class="sggrid"><button id="scUp" title="Grubu genişlet (+)"><i>⤢</i><span>Genişlet</span></button><button id="scDn" title="Grubu daralt (−)"><i>⤡</i><span>Daralt</span></button><button id="scHUp" title="Sadece yatayda genişlet"><i>↔</i><span>Yatay aç</span></button><button id="scHDn" title="Sadece yatayda daralt"><i>→←</i><span>Yatay sıkıştır</span></button><button id="scVUp" title="Sadece dikeyde genişlet"><i>↕</i><span>Dikey aç</span></button><button id="scVDn" title="Sadece dikeyde daralt"><i>⇵</i><span>Dikey sıkıştır</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="fc"><i>➤</i>Yön<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Yön</div><div class="sggrid"><button id="fcFront" title="Seyirciye dönük"><i>↓</i><span>Seyirciye</span></button><button id="fcBack" title="Arkaya (fona) dönük"><i>↑</i><span>Arkaya</span></button><button id="fcLeft" title="Sola dönük"><i>←</i><span>Sola</span></button><button id="fcRight" title="Sağa dönük"><i>→</i><span>Sağa</span></button><button id="fcCCW" title="45° sola döndür (Q)"><i>⟲</i><span>45° sola</span></button><button id="fcCW" title="45° sağa döndür (E)"><i>⟳</i><span>45° sağa</span></button><button id="fcCenter" title="Sahne ortasına dönük"><i>⊙</i><span>Merkeze</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="or"><i>⟳</i>Daire dönüşü<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Daire dönüşü</div><div class="sggrid"><button id="orCw5" title="Saat yönünde yarım tur"><i>⟳</i><span>Yarım tur</span></button><button id="orCw1" title="Saat yönünde 1 tur"><i>⟳</i><span>1 tur</span></button><button id="orCc5" title="Saat yönünün tersine yarım tur"><i>⟲</i><span>Ters yarım tur</span></button><button id="orCc1" title="Saat yönünün tersine 1 tur"><i>⟲</i><span>Ters 1 tur</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="fg" id="sgFig"><i>♫</i>Oyna<em>▾</em></button><div class="sgmenu wide" hidden><div id="figPanel"><div class="sgtitle">Oyun figürleri</div><div class="figlist"><button data-fig="harm" class="on" title="Bir çift (erkek + kadın) ortak merkez etrafında zeybek adımlarıyla döner">Harmandalı – Kollu (Düz)</button></div><div class="sgtitle">Mod</div><div class="seg wide"><button data-fgmode="yer" title="Çiftler orta noktaları etrafında döner; yeni bölüm eklenir">Yerinde (çift dönüşü)</button><button data-fgmode="ilr" title="Bu figüre gelirken aynı adım ve kollarla hedeflere gidilir">İlerleyerek</button></div><div class="sgtitle">Ritim</div><div class="figbeat"><button id="figBeatDn" aria-label="Vuruş azalt">−</button><input id="figBeats" type="number" min="1" max="99" step="1" inputmode="numeric" aria-label="Vuruş sayısı"><button id="figBeatUp" aria-label="Vuruş artır">+</button><span>vuruş</span><div class="seg"><button data-fgmeter="9/4">9/4</button><button data-fgmeter="9/2">9/2</button></div></div><small class="figdur" id="figDur"></small><div id="figYerOpts"><div class="sgtitle">Yön ve tur</div><div class="seg wide"><button data-fgdir="1">↻ Saat yönü</button><button data-fgdir="-1">↺ Ters</button></div><div class="seg wide"><button data-fgturn="1" title="Tam tur: yerlerine dönerler">1 tur</button><button data-fgturn="0.5" title="Yarım tur: yer değiştirmiş biterler">½ tur</button></div><div class="sgtitle">Çiftler (erkek ⟲ kadın)</div><div id="figPairs"></div><div class="sggrid big" style="margin-top:6px;grid-template-columns:1fr"><button id="figAuto" title="En yakın erkek-kadın çiftleri"><i>⇆</i><span>Otomatik eşleştir</span></button></div></div><div class="figact"><button id="figApply" class="primary">Uygula</button><button id="figRemove" hidden>Figürü kaldır</button></div></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="tr" id="sgTr"><i>⤳</i>Geçiş<em>▾</em></button><div class="sgmenu wide" hidden><div class="sgtitle">Yeni geçiş · yeni bölüm eklenir</div><div class="sggrid big"><button id="trSwap" title="2 dansçı ya da 2 eşit küme birbirinin yerine oval yoldan geçer"><i>⇄</i><span>Yer değiştir</span></button><button id="trRows" title="İki sıra karşılıklı yer değiştirir; aralardan fermuar gibi geçer"><i>⇅</i><span>Sıralar yer değiştir</span></button><button id="trSquare" title="2×2 duran 4 dansçı aynı anda bir sonraki köşeye, kare merkezi etrafında yay çizerek geçer"><i>⟳</i><span>Kare dönüş (çark)</span></button><button id="trRing" title="3 ya da daha fazla dansçı halka şeklinde döner: her biri sıradakinin yerine geçer"><i>◌</i><span>Halka dönüşü</span></button></div><div class="sgtitle">Yer değiştirme · omuz ve yay</div><div class="seg wide"><button data-trside="1" title="Sağ omuzlar birbirine bakarak geçer">Sağ omuzdan</button><button data-trside="-1" title="Sol omuzlar birbirine bakarak geçer">Sol omuzdan</button></div><div class="seg wide"><button data-trw="0">Dar</button><button data-trw="1">Orta</button><button data-trw="2">Geniş</button></div><div class="sgtitle">Kare / halka · yön ve adım</div><div class="seg wide"><button data-trdir="1">↻ Saat yönü</button><button data-trdir="-1">↺ Ters yön</button></div><div class="seg wide"><button data-trstep="1" title="Bir sonraki köşe">1 · 90°</button><button data-trstep="2" title="Karşı köşe">2 · 180°</button><button data-trstep="3" title="Üç köşe öteye">3 · 270°</button></div><div class="sgtitle">Bu figüre geliş yolu (seçilenler)</div><div class="sggrid big"><button id="trArcIn" title="Önceki figürden bu figüre oval (yay) yoldan gelir; omuz ve yay seçeneklerini kullanır"><i>⌒</i><span>Oval yap</span></button><button id="trLine" title="Önceki figürden bu figüre düz gelir"><i>╱</i><span>Düz yap</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="tf" id="sgTf"><i>⟲</i>Dönüştür<em>▾</em></button><div class="sgmenu wide" hidden><div class="sgtitle">Döndür · seçimin üstündeki ◯ tutamağı da sürüklenebilir (Shift: 15°)</div><div class="rotq"><button data-rotq="-90" title="90° saat yönünün tersine">↺90°</button><button data-rotq="-45" title="45° saat yönünün tersine">↺45°</button><button data-rotq="180" title="180°">180°</button><button data-rotq="45" title="45° saat yönünde">↻45°</button><button data-rotq="90" title="90° saat yönünde">↻90°</button></div><div class="rotdeg"><input id="rotDeg" type="number" step="5" value="30" inputmode="decimal" aria-label="Derece"><span>° (+ saat yönü)</span><button id="rotGo">Döndür</button></div><div class="sgtitle">Dönme merkezi</div><div class="seg wide"><button data-piv="grp">Küme merkezi</button><button data-piv="dan">Dansçı</button><button data-piv="stage">Sahne merkezi</button></div><select id="pivId" hidden aria-label="Merkezdeki dansçı"></select><div class="sgtitle">Dansçıların yönü</div><div class="seg wide"><button data-fm="aud" title="Yönler değişmez: seyirciye bakan bakmaya devam eder">Seyirciye bak</button><button data-fm="rot" title="Yönler dizilimle birlikte döner">Dizilimle dön</button></div><div class="sgtitle">Bu figüre geçiş (önceki figürden)</div><div class="seg wide"><button data-tm="line" title="Dansçılar yeni yerlerine düz yürür">Düz</button><button data-tm="orb" title="Dizilim şeklini koruyarak merkez etrafında döner (çark gibi)">Yörünge (çark)</button></div><div class="sgtitle">Diğer dönüşümler</div><div class="sggrid big"><button id="tfMirLR" title="Merkeze göre sağ-sol ayna"><i>⇋</i><span>Ayna sağ-sol</span></button><button id="tfMirFB" title="Merkeze göre ön-arka ayna"><i>⇵</i><span>Ayna ön-arka</span></button><button id="tfIn" title="Aralıkları orantılı küçült"><i>⤡</i><span>Daralt</span></button><button id="tfOut" title="Aralıkları orantılı büyüt"><i>⤢</i><span>Genişlet</span></button><button id="tfEven" title="Sırada uçlar arası eşit, halkada eşit açı"><i>⋯</i><span>Eşit aralık</span></button><button id="tfAlH" title="Merkezden geçen yatay çizgiye"><i>═</i><span>Yatay hiza</span></button><button id="tfAlV" title="Merkezden geçen dikey çizgiye"><i>║</i><span>Dikey hiza</span></button><button id="tfAlD1" title="Merkezden geçen çapraz çizgiye (sol ön → sağ arka)"><i>⟋</i><span>Çapraz ⟋</span></button><button id="tfAlD2" title="Merkezden geçen çapraz çizgiye (sol arka → sağ ön)"><i>⟍</i><span>Çapraz ⟍</span></button></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="ps"><i>🧍</i>Duruş<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Duruş</div><div class="sggrid"><button id="psStand" title="Ayakta"><i>🧍</i><span>Ayakta</span></button><button id="psKneel" title="Diz çök"><i>🧎</i><span>Diz çök</span></button><button id="psUp" title="Kolları kaldır"><i>🙌</i><span>Kollar yukarı</span></button><button id="psDown" title="Kolları indir"><i>👇</i><span>Kollar aşağı</span></button></div><div id="kneeLegRow" hidden><div class="sgtitle" style="margin-top:8px">Diz çökmede önde olan ayak</div><div class="seg wide"><button id="psLegR" title="Sağ ayak önde, sol diz yerde">Sağ önde</button><button id="psLegL" title="Sol ayak önde, sağ diz yerde">Sol önde</button></div></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="ks"><i>⇥</i>Kulis<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Kulis</div><div class="sggrid"><button id="selOut" title="Seçilenleri kulise çıkar"><i>⇥</i><span>Kulise çıkar</span></button><button id="selIn" title="Seçilenleri sahneye al"><i>⇤</i><span>Sahneye al</span></button></div><div id="exitModeRow" hidden><div class="sgtitle" style="margin-top:8px">Kulise çıkış</div><div class="seg wide"><button id="exWalk" title="Sakin adımlarla yürüyerek çıkar (1,4 m/sn)">Yürüyerek</button><button id="exRun" title="Hızlı yürüyüşle çıkar: normal yürüyüş adımı, daha hızlı (3,5 m/sn)">Koşarak</button></div><p class="exwarn" id="exWarn" hidden></p></div><div id="enterModeRow" hidden><div class="sgtitle" style="margin-top:8px">Sahneye giriş</div><div class="seg wide"><button id="enWalk" title="Kulisten sakin adımlarla yürüyerek girer (1,4 m/sn)">Yürüyerek</button><button id="enRun" title="Kulisten hızlı yürüyüşle girer: normal yürüyüş adımı, daha hızlı (3,5 m/sn)">Koşarak</button></div><p class="exwarn" id="enWarn" hidden></p></div></div></div>
+        <div class="sg"><button class="sgbtn" data-g="cl"><i>●</i>Küme<em>▾</em></button><div class="sgmenu" hidden><div class="sgtitle">Kümeye ata (bu figür)</div><div class="swatches" id="cluSw"></div><div class="sggrid" style="margin-top:6px"><button id="cluNone"><i>○</i><span>Kümeden çıkar</span></button><button id="cluClear"><i>⌫</i><span>Figürde tümünü temizle</span></button></div></div></div>
+        <button id="selClose" class="ghost" title="Seçimi kaldır (Esc)">✕</button>
+      </div>
+
+      <div class="notebox ntop" id="noteTop">
+        <button class="nhead" id="ntTopBtn" title="Tüm oyunlarda ortak genel notlar"><span>📝 Genel notlar</span><i class="ndot" hidden></i><em>▾</em></button>
+        <div class="nbody" hidden><textarea id="ntGeneral" placeholder="Ekip için genel notlar: prova saatleri, kostüm, dikkat edilecekler…"></textarea><small>Bütün oyunlarda ortaktır · otomatik kaydedilir</small></div>
+      </div>
+      <div class="notebox nbot" id="noteBot">
+        <button class="nhead" id="ntBotBtn"><span id="ntBotLbl">📝 Notlar</span><i class="ndot" hidden></i><em>▴</em></button>
+        <div class="nbody" hidden>
+          <div class="seg wide ntabs"><button data-nt="fig" class="on" id="ntTabFig">Figür notu</button><button data-nt="game" id="ntTabGame">Oyun notu</button></div>
+          <textarea id="ntText"></textarea><small id="ntHint"></small>
+        </div>
+      </div>
+      <div class="zoombar" aria-label="Yakınlaştırma">
+        <button id="zOut" title="Uzaklaştır">−</button><button id="zoomLbl" title="Sahneyi sığdır">100%</button><button id="zIn" title="Yakınlaştır">＋</button><span class="zsep"></span><button id="zFit" title="Sahneyi ekrana sığdır">Sığdır</button>
+      </div>
+      <div class="cwarn" id="exitWarn2d" role="status" hidden></div>
+      <div class="pickbar" id="pickBar" hidden><span id="pickTxt"></span><button id="pickDone">Bitir</button></div>
+      <div class="legend">
+        <span><i class="dot" style="background:#3b95e3"></i>Erkek</span>
+        <span><i class="dot" style="background:#e478a5"></i>Kız</span>
+        <span><i class="dot" style="background:#ffd36d"></i>Seçili</span>
+        <span><i class="dot" style="background:#3b95e3;border:1px dashed #fff;opacity:.6"></i>Kulis</span>
+        <span>◎ Diz çökmüş</span><span>\o/ Kollar yukarı</span>
+      </div>
+    </div>
+
+    <!-- 3D -->
+    <div id="view3d" hidden>
+      <div class="c3"><canvas id="c3d"></canvas><canvas id="c3o"></canvas><div id="rec" hidden>● KAYIT</div></div>
+      <div class="camdock" id="camBtns">
+        <button data-cam="seyirci" class="on">Seyirci</button>
+        <button data-cam="balkon">Balkon</button>
+        <button data-cam="kus">Kuşbakışı</button>
+        <button data-cam="sol">Sol kanat</button>
+        <button data-cam="sag">Sağ kanat</button>
+        <button data-cam="arka">Arka</button>
+        <span class="gsep"></span>
+        <button id="camTour" title="Kamera sahnenin etrafında döner">⟳ Tur</button>
+        <button id="camFollow" title="Seçili dansçıyı takip et">◎ Takip</button>
+        <span class="gsep"></span>
+        <button id="camLabels" title="Dansçı numaralarını göster / gizle"># Numaralar</button>
+      </div>
+    </div>
+
+    <!-- Yüzen paneller -->
+    <div class="pop" id="popSel" hidden>
+      <div class="pophead"><b>Seçim</b><button class="x" title="Kapat">✕</button></div>
+      <div class="row"><button id="selAll">Tümü</button><button id="selE">Erkekler</button><button id="selK">Kızlar</button><button id="selNone">Hiçbiri</button></div>
+      <div class="row"><button id="multi">☐ Çoklu seçim modu</button></div>
+      <p class="hint">Boş alanda sürükleyerek kutu ile seç. Shift ile seçime ekle. Ok tuşları seçileni 10 cm (Shift: 50 cm) kaydırır.</p>
+      <div class="sep" style="border-top:1px solid var(--line);margin:10px 0"></div>
+      <b style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Bu figürdeki kümeler</b>
+      <div class="row" id="cluList" style="margin-top:6px"></div>
+    </div>
+
+    <div class="pop" id="popStage" hidden>
+      <div class="pophead"><b>Sahnedekiler · Giriş-çıkış</b><button class="x" title="Kapat">✕</button></div>
+      <div class="row"><button id="onAll">Herkes</button><button id="onE">Sadece erkekler</button><button id="onK">Sadece kızlar</button></div>
+      <p class="hint strong" id="onInfo"></p>
+      <label class="field">Kulise çıkış tarafı <select id="gateSel"></select></label>
+      <p class="hint">Ayarlar açık olan figüre uygulanır. Aynı şeritten girenler kulisten sahnedeki aralıklarıyla dizili çıkar: hepsi aynı anda kalkar, aynı hızla aynı mesafeyi yürür ve yerlerine aynı anda varır. Çıkış bunun tersidir. Kulisteki bekleme yerleri bu diziye göre ayarlanır. 3D'de kulistekiler görünmez.</p>
+      <div class="wqhead"><b>Kulis sırası</b><button id="wqAuto" title="Bu figürdeki tüm kulis şeritlerini kurala göre sırala; elle sıralamayı kaldırır">Otomatik sırala</button></div>
+      <p class="hint" id="wqHint">Her şeritte sahneye en yakın bekleyen solda. Sürükle-bırak ile sırayı ya da şeridi değiştir. Kulis girişlerindeki + ile şeride dansçı ekle.</p>
+      <div id="wqList"></div>
+      <p class="exwarn" id="wqWarn" hidden></p>
+    </div>
+
+    <div class="pop" id="popPlus" hidden>
+      <div class="pophead"><b id="plTitle">Kulis girişi</b><button class="x" title="Kapat">✕</button></div>
+      <p class="hint" id="plHint">Seçilenler önceki figürde bu şeridin bekleme sırasına eklenir ve bu figürde sahneye girer.</p>
+      <small class="plsub">Kulistekiler</small><div class="plchips" id="plOff"></div>
+      <small class="plsub">Sahnedekiler</small><div class="plchips" id="plOn"></div>
+      <small class="plsub">Sahnedeki yerleri</small>
+      <div class="seg wide plmode"><button id="plModeAuto" class="on" title="Önceki sahne yerine; yoksa şerit hizasında kulis tarafındaki yarıya eşit aralıkla">Otomatik</button><button id="plModePick" title="Onayladıktan sonra sırayla sahnede hedef noktalarına dokun">Sahnede göstereceğim</button></div>
+      <div class="plfoot"><span id="plCount">Seçilen yok</span><button id="plCancel">İptal</button><button id="plOk" class="primary" disabled>Onayla</button></div>
+    </div>
+
+    <div class="pop" id="popForm" hidden>
+      <div class="pophead"><b>Dizilim</b><button class="x" title="Kapat">✕</button></div>
+      <div class="formgrid">
+        <button id="mkLine"><b>—</b>Sıra</button>
+        <button id="mkCircle"><b>○</b>Daire</button>
+        <button id="mkHalf"><b>◠</b>Yarım ay</button>
+        <button id="mkHalfR"><b>◡</b>Ters yarım ay</button>
+        <button id="mkTwo"><b>○○</b>2 daire</button>
+        <button id="mkVup"><b>V</b>Aşağıdan yukarıya V</button>
+        <button id="mkVdown"><b>Λ</b>Yukarıdan aşağıya V</button>
+        <button id="mkGrid4"><b>⁘</b>4/4 yatay sıra</button>
+        <button id="mkBlock4"><b>⊞</b>4/4 kare blok</button>
+        <button id="mkDiagR"><b>⟋⟋</b>Çapraz 2 sıra (/)</button>
+        <button id="mkDiagL"><b>⟍⟍</b>Çapraz 2 sıra (\)</button>
+      </div>
+      <label class="field">Yerleştirme</label>
+      <div class="seg wide" style="margin-top:4px"><button data-fmode="near" title="Her dansçı dizilimde kendisine en yakın noktaya gider">En kısa yol</button><button data-fmode="num" title="Numara sırasıyla: 1 en kısa, önden ve soldan başlar">1 → 16 sırası</button></div>
+      <p class="hint">En kısa yol: dansçılar dizilimde kendilerine en yakın noktaya gider; önceki figürü sonradan değiştirsen bile yeniden en yakın noktaya dağılırlar. Elle sürüklediğin dansçı dizilimden ayrılır ve bıraktığın yerde kalır.</p>
+      <label class="field">Dizilim aralığı <span><input id="spacing" type="number" step="0.1" min="0.4" value="1"> m</span></label>
+      <p class="hint">Önce dansçıları seç. Hizalama, genişlet/daralt ve aynalama seçim yapınca sahnenin üstünde açılan araç çubuğunda. Klavyede + / − ile grubu açıp sıkıştırabilirsin.</p>
+      <div class="myforms">
+        <div class="mfhead"><b>Benim dizilimlerim</b><button id="mfSave" class="primary" title="Seçili dansçıların (seçim yoksa tüm sahnenin) dizilimini kaydet">＋ Kaydet</button></div>
+        <div id="mfList"></div>
+        <p class="hint">Sahnede bir dizilim kur, dansçıları seç ve "＋ Kaydet"e bas. Uygulamak için dansçıları seçip kaydettiğin dizilime dokun (seçim yoksa herkese uygulanır). Kayıtlar bütün oyunlarda kullanılabilir.</p>
+      </div>
+    </div>
+
+    <div class="pop" id="popMusic" hidden>
+      <div class="pophead"><b>Ritim · Metronom</b><button class="x" title="Kapat">✕</button></div>
+      <div class="row" style="justify-content:space-between"><span>Oynatırken metronom</span><button id="metOn" class="switch" role="switch" aria-checked="false"><i></i></button></div>
+      <label class="field">Ölçü <span class="seg" id="meterSeg"><button data-meter="9/4">9/4</button><button data-meter="9/2">9/2</button></span></label>
+      <label class="field">Vurgu grupları <select id="metGroup">
+        <option value="2+2+2+3">2+2+2+3</option><option value="2+2+3+2">2+2+3+2</option><option value="2+3+2+2">2+3+2+2</option><option value="3+2+2+2">3+2+2+2</option><option value="9">Eşit (9 vuruş)</option></select></label>
+      <label class="field">Tempo <span><input id="bpm" type="number" min="30" max="300" step="1"> <small id="bpmUnit">♩/dk</small></span></label>
+      <input id="bpmRange" type="range" min="30" max="300" step="1" style="width:100%;margin-top:6px">
+      <label class="field">Ses <input id="metVol" type="range" min="0" max="1" step="0.05" style="width:150px"></label>
+      <div class="row" style="margin-top:10px"><button id="tapBtn">Tap tempo</button><button id="metTest">▶ Dinle</button></div>
+      <div class="beatdots big" id="beatTest"></div>
+      <p class="hint" id="metInfo"></p>
+      <p class="hint">Koreografi 0. saniyede ölçünün 1. vuruşuyla başlar. 9/2'de her vuruş bir ikilik (iki dörtlük) sürer. Figür ayarlarından (⚙) bekleme ve geçiş sürelerini ölçü cinsinden verebilirsin.</p>
+    </div>
+
+    <div class="pop" id="popAtmo" hidden>
+      <div class="pophead"><b>Atmosfer</b><button class="x" title="Kapat">✕</button></div>
+      <div class="seg wide" id="atmoBtns"><button data-atmo="gala">Gala</button><button data-atmo="prova">Prova</button><button data-atmo="acik">Açık hava</button></div>
+      <div class="grid2" style="margin-top:10px">
+        <span>Sis / duman</span><input id="fog" type="range" min="0" max="1" step="0.05">
+        <span>Parlama <output id="glowVal" class="rv"></output></span><input id="glow" type="range" min="0" max="100" step="1" title="Işıkların etrafındaki parlama (bloom). Düşük kalitede kapalıdır.">
+
+        <span>Fon rengi</span><input id="cBackdrop" type="color">
+        <span>Zemin rengi</span><input id="cFloor" type="color">
+      </div>
+      <div class="checks">
+        <label class="chk"><input type="checkbox" id="beams"> Işık huzmeleri</label>
+        <label class="chk"><input type="checkbox" id="follow"> Takip spotu</label>
+        <label class="chk"><input type="checkbox" id="seats"> Seyirci koltukları</label>
+        <label class="chk"><input type="checkbox" id="lines"> Zemin çizgileri</label>
+        <label class="chk"><input type="checkbox" id="labels"> Numaralar</label>
+        <label class="chk"><input type="checkbox" id="clusters"> Küme renkleri</label>
+      </div>
+      <label class="field">Görüntü kalitesi</label>
+      <div class="seg wide" id="q3dBtns" style="margin-top:4px"><button data-q3d="high" title="Gerçek gölgeler, tam çözünürlük bloom, 4× kenar yumuşatma">Yüksek</button><button data-q3d="mid" title="Daha küçük gölge haritası, yarım çözünürlük bloom (tablet önerisi)">Orta</button><button data-q3d="low" title="Gölge lekesi, son işleme kapalı, en akıcı">Düşük</button></div>
+      <label class="chk" style="margin-top:8px"><input type="checkbox" id="fps3d"> Kare hızını göster</label>
+      <p class="hint">Kare hızı uzun süre 30'un altında kalırsa kalite otomatik olarak bir kademe düşer. Ayar bu cihazda hatırlanır.</p>
+    </div>
+
+    <div class="pop" id="popCost" hidden>
+      <div class="pophead"><b>Kostüm</b><button class="x" title="Kapat">✕</button></div>
+      <div class="seg wide" style="margin-bottom:10px"><button data-outfit="costume">Kostüm</button><button data-outfit="practice">Prova (tişört + eşofman)</button></div>
+      <div id="outCostume">
+      <div class="row" id="costPresets"><button data-cp="0">Kırmızı-Siyah</button><button data-cp="1">Mavi-Beyaz</button><button data-cp="2">Yeşil-Altın</button><button data-cp="3">Mor-Gümüş</button></div>
+      <div class="grid2" style="margin-top:10px" id="costE"><span style="grid-column:1/-1;color:#6fb0f0;font-weight:700">Erkek</span></div>
+      <div class="grid2" style="margin-top:10px" id="costK"><span style="grid-column:1/-1;color:#f0a0c4;font-weight:700">Kız</span></div>
+      <label class="chk" style="margin-top:10px"><input type="checkbox" id="hatOn"> Erkeklerde başlık</label>
+      </div>
+      <div id="outPractice" hidden>
+        <div class="row" id="pracPresets"><button data-pp="0">Beyaz-Siyah</button><button data-pp="1">Siyah-Siyah</button><button data-pp="2">Ekip rengi</button></div>
+        <div class="grid2" style="margin-top:10px" id="pracE"><span style="grid-column:1/-1;color:#6fb0f0;font-weight:700">Erkek</span></div>
+        <div class="grid2" style="margin-top:10px" id="pracK"><span style="grid-column:1/-1;color:#f0a0c4;font-weight:700">Kız</span></div>
+        <p class="hint">Prova kıyafeti: kısa kollu tişört, eşofman altı ve spor ayakkabı.</p>
+      </div>
+    </div>
+
+    <div class="pop" id="popRec" hidden>
+      <div class="pophead"><b>Video kaydı</b><button class="x" title="Kapat">✕</button></div>
+      <div class="row"><select id="recRes"><option value="720">720p</option><option value="1080">1080p</option></select><button id="recBtn" class="primary">● Videoyu kaydet</button></div>
+      <p class="hint">Koreografiyi baştan sona oynatır ve 3D görüntüyü video olarak indirir. Kayıt sırasında kamera açısını değiştirebilirsin; kayıt bitene kadar bu sekmede kal.</p>
+    </div>
+
+  </section>
+
+  <section id="setPage" hidden>
+    <section class="panel dlist">
+      <div class="row" style="justify-content:space-between;margin-bottom:6px"><div><b class="ttl" style="margin-bottom:2px">Dansçı bilgileri</b><small>İsim ve boy (cm) · otomatik kaydedilir</small></div><button id="byHeight" class="primary" title="Erkeklerde 1, kızlarda 17 en kısa olacak şekilde numaraları boya göre yeniden ver">↕ Boya göre numarala (kısa → uzun)</button></div>
+      <div class="dcols"><div><div class="dhead" style="color:#6fb0f0">Erkekler</div><div id="dlistE"></div></div><div><div class="dhead" style="color:#f0a0c4">Kızlar</div><div id="dlistK"></div></div></div>
+      <p class="hint">Boy bilgisi 3D önizlemede karakter boyunu belirler; boş bırakılırsa 170 cm kabul edilir. İsimler 2D sahnede numaranın altında görünür.</p>
+    </section>
+    <div class="setcol">
+      <section class="panel">
+        <b class="ttl">Görünüm</b>
+        <div class="row" style="justify-content:space-between"><span>Karanlık mod</span><button id="themeBtn" class="switch" role="switch" aria-checked="true"><i></i></button></div>
+        <div class="row" style="margin-top:8px;justify-content:space-between"><span>İsimleri 2D sahnede göster</span><button id="namesBtn" class="switch" role="switch" aria-checked="true"><i></i></button></div>
+      </section>
+
+      <section class="panel">
+        <b class="ttl">Sahne ölçüleri</b>
+        <div class="grid2">
+          <span>Genişlik (m)</span><input id="stW" type="number" min="4" max="30" step="0.5">
+          <span>Derinlik (m)</span><input id="stD" type="number" min="3" max="20" step="0.5">
+          <span>Kulis girişi (her yan)</span><input id="stWings" type="number" min="1" max="6" step="1">
+        </div>
+        <div class="row" style="margin-top:8px"><button id="stApply" class="primary">Sahneyi güncelle</button></div>
+      </section>
+      <section class="panel">
+        <b class="ttl">Dansçılar</b>
+        <div class="grid2">
+          <span>Erkek</span><input id="nE" type="number" min="0" max="60">
+          <span>Kız</span><input id="nK" type="number" min="0" max="60">
+        </div>
+        <div class="row" style="margin-top:8px"><button id="nApply" class="primary">Dansçıları güncelle</button><button id="resetFrame">Bu figürü başlangıca döndür</button></div>
+      </section>
+      <section class="panel">
+        <b class="ttl">Açık oyun</b>
+        <div class="grid2"><span>Ad</span><input id="pName" type="text" style="width:170px"></div>
+        <div class="row" style="margin-top:10px"><button id="export" class="primary">⤓ Bu oyunu dosyaya aktar</button><button id="gotoLib">Oyunlar</button></div>
+        <p class="hint">Değişiklikler bu cihazda otomatik kaydedilir. Tüm oyunların yedeği için aşağıdaki Yedek bölümünü, klasörler için Oyunlar sekmesini kullan. Dosyadan tek oyun eklemek (V2 dahil):</p>
+        <p><input type="file" id="import" accept=".json,application/json"></p>
+        <button id="newProject">＋ Yeni oyun</button>
+      </section>
+      <section class="panel" id="backupPanel">
+        <b class="ttl">Yedek</b>
+        <p class="hint">Tüm oyunlar (sürüm geçmişleriyle), dizilimlerim, gösteri akışı ve genel notlar tek bir .json dosyasına yazılır. Yedekten yükleme bu cihazdaki oyunları silmez: yedekteki oyunlar eklenir, birebir aynısı varsa atlanır.</p>
+        <div class="row" style="margin-top:8px"><button id="bkSave" class="primary">⤓ Yedekle (dosya indir)</button><button id="bkLoad">⤒ Yedekten yükle</button><input type="file" id="bkFile" accept=".json,application/json" hidden></div>
+      </section>
+      <section class="panel" id="aboutPanel">
+        <b class="ttl">Uygulama</b>
+        <div class="grid2"><span>Sürüm</span><b id="appVer"></b><span>Derleme</span><span id="appBuild"></span><span>Bağlantı</span><span id="appNet"></span></div>
+        <p class="hint" id="pwaHint"></p>
+        <div class="row"><button id="pwaInstall" class="primary" hidden>⊕ Uygulamayı yükle</button></div>
+      </section>
+        </div>
+  </section>
+  <section id="libPage" hidden>
+    <div class="libhead">
+      <div><h2 id="libTitle">Oyunlar</h2><small id="libInfo"></small></div>
+      <div class="row">
+        <button id="gNew" class="primary">＋ Yeni oyun</button>
+        <button id="gEmpty" class="danger" hidden>Çöpü boşalt</button>
+        <button id="gMedia" hidden title="Fotoğraf ya da videodan dansçı yerleşimlerini aktar">📷 Foto / videodan aktar</button>
+        <button id="gImport">⤒ İçe aktar</button><input type="file" id="gImportFile" accept=".json,application/json" hidden>
+        <button id="gBackupAll">⤓ Tüm oyunları yedekle</button>
+      </div>
+    </div>
+    <div class="libbody">
+      <nav class="folders" id="folders"></nav>
+      <div class="cards" id="cards"></div>
+    </div>
+    <div class="modal" id="verModal" hidden>
+      <div class="modalbox">
+        <div class="pophead"><b id="verTitle">Yedekler</b><button class="x" id="verX" title="Kapat">✕</button></div>
+        <div class="row"><button id="verSnap" class="primary">＋ Şimdi yedek al</button></div>
+        <div id="verList"></div>
+        <p class="hint">Her oyun için son 12 yedek saklanır. Oyun her açılışta (6 saatte bir) otomatik yedeklenir. Geri yüklemeden önce mevcut hâl de yedeğe eklenir.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="impmodal" id="impModal" hidden>
+  <div class="imphead">
+    <b>📷 Foto / videodan içe aktar</b>
+    <div class="impsteps" id="impSteps">
+      <span data-st="1">1 · Dosya</span><span data-st="2">2 · Sahne köşeleri</span><span data-st="3">3 · Dansçıları işaretle</span><span data-st="4">4 · Figür olarak ekle</span>
+    </div>
+    <button id="impClose" class="ghostbtn" title="Kapat">✕</button>
+  </div>
+  <div class="impbody">
+    <div class="impstage" id="impStage">
+      <canvas id="impCv"></canvas>
+      <div class="impempty" id="impEmpty"><div><b>Bir dans gösterisinin fotoğrafını ya da videosunu seç</b><p>Sahnenin dört köşesinin göründüğü, mümkünse yukarıdan/seyirciden çekilmiş görüntüler en iyi sonucu verir.</p><button id="impPick" class="primary">Dosya seç</button></div></div>
+      <div class="impzoom"><button id="impZo" title="Uzaklaştır">−</button><button id="impZf" title="Sığdır">Sığdır</button><button id="impZi" title="Yakınlaştır">＋</button><button id="impPan" title="Kaydırma modu (tek parmakla görüntüyü kaydır)">✋</button></div>
+      <div class="impvid" id="impVid" hidden>
+        <button id="impVPlay">▶</button><button id="impVBack" title="0,5 sn geri">−0,5</button>
+        <input type="range" id="impVSeek" min="0" max="1000" value="0"><span id="impVTime">0:00</span>
+        <button id="impVFwd" title="0,5 sn ileri">+0,5</button>
+      </div>
+    </div>
+    <aside class="impside" id="impSide"></aside>
+  </div>
+  <input type="file" id="impFile" accept="image/*,video/*" hidden>
+  <video id="impVideo" playsinline muted hidden></video>
+</div>
+
+<div class="modal" id="dlg" hidden>
+  <div class="modalbox dlgbox" role="dialog" aria-modal="true">
+    <div class="pophead"><b id="dlgTitle"></b></div>
+    <p id="dlgMsg" class="dlgmsg"></p>
+    <div id="dlgBody"></div>
+    <div class="row dlgacts"><button id="dlgCancel">Vazgeç</button><button id="dlgOk" class="primary">Tamam</button></div>
+  </div>
+</div>
+
+<footer class="timeline">
+  <div class="scrubrow"><input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Zaman"></div>
+  <div class="tlrow">
+    <button class="ib" id="tlToggle" title="Zaman çizelgesini gizle">▾</button>
+    <button id="play" class="playbtn" title="Oynat / duraklat (Boşluk)">▶</button>
+    <button class="ib" id="toStart" title="Başa dön">⏮</button>
+    <span id="tlabel">0.0 / 0.0 sn</span>
+    <span id="tlHint">Zaman çizelgesi gizli</span>
+    <span class="beatwrap" id="beatWrap" hidden><span class="beatdots" id="beatDots"></span><small id="barInfo"></small></span>
+    <span class="gsep tl-only"></span>
+    <div class="frames" id="frames"></div>
+    <button class="tl-only partbtn" id="fPart" title="Açık figüre yeni bölüm ekle (aynı figürde yer değiştirme)">＋ Bölüm</button>
+    <button class="ib tl-only" id="fAdd" title="Yeni figür ekle">＋</button>
+    <button class="ib tl-only" id="frowToggle" title="Figürler: sırala, sil, süreler">☰</button>
+    <select id="speed" class="tl-only" title="Oynatma hızı"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+  </div>
+  <div class="framepop" id="framePop" hidden>
+    <div class="pophead"><b>Figürler</b><button class="x" id="framePopX" title="Kapat">✕</button></div>
+    <div class="fhead"><span>#</span><span>Figür / bölüm</span><span>Bekle (sn)</span><span>Geçiş (sn)</span><span style="text-align:right">Sıfırla · Sırala · Sil</span></div>
+    <div class="flist" id="flist"></div>
+    <div class="row" style="margin-top:10px"><button id="fAddP" class="primary">＋ Yeni figür (sona)</button><button id="fPartP">＋ Açık figüre bölüm ekle</button><button id="fMedia" hidden title="Fotoğraf ya da videodan figür aktar">📷 Foto / videodan</button></div>
+    <div class="barset" id="barSet">
+      <div class="row"><small>Seçili figür · bekle (ölçü)</small><button data-bh="0">0</button><button data-bh="0.5">½</button><button data-bh="1">1</button><button data-bh="2">2</button></div>
+      <div class="row"><small>Seçili figür · geçiş (ölçü)</small><button data-bt="0.5">½</button><button data-bt="1">1</button><button data-bt="2">2</button><button data-bt="3">3</button></div>
+      <p class="hint" id="barHint"></p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
